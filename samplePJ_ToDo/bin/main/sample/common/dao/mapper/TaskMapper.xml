@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sample.common.dao.mapper.TaskMapper">
+
+	<select id="countByUsername" resultType="long">
+	    SELECT COUNT(*) FROM tasks WHERE username = #{username}
+	</select>
+
+    <select id="findAll" resultType="sample.common.dao.entity.Task">
+        SELECT
+            id AS taskId,
+            username,
+            title,
+            content,
+            name,
+            start_date AS startDate,
+            end_date AS endDate,
+            created_at AS createdTime,
+            updated_at AS updatedTime
+        FROM tasks
+        WHERE username = #{username}
+	    ORDER BY id DESC
+	    LIMIT 5 OFFSET #{offset}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO tasks (
+            username, title, content, name, start_date, end_date, created_at, updated_at
+        ) VALUES (
+            #{username}, #{title}, #{content}, #{name}, #{startDate}, #{endDate}, NOW(), NOW()
+        )
+    </insert>
+	
+	<update id="update">
+	    UPDATE tasks
+	    SET
+	        username = #{username},
+	        title = #{title},
+	        content = #{content},
+	        name = #{name},
+	        start_date = #{startDate},
+	        end_date = #{endDate},
+	        updated_at = CURRENT_TIMESTAMP
+	    WHERE
+	        id = #{taskId}
+    </update>
+    
+    <delete id="delete">
+	    DELETE FROM tasks
+	    WHERE id = #{taskId}
+	</delete>
+    
+    <select id="findById" resultType="sample.common.dao.entity.Task">
+	    SELECT 
+	        id AS taskId, 
+	        username, 
+	        title, 
+	        content, 
+	        name, 
+	        start_date AS startDate, 
+	        end_date AS endDate, 
+	        created_at AS createdTime, 
+	        updated_at AS updatedTime 
+	    FROM tasks 
+	    WHERE id = #{taskId}
+	</select>
+
+</mapper>

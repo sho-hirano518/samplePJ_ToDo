@@ -1,0 +1,291 @@
+ /* リセットスタイル */
+* {
+     margin: 0;
+	 padding: 0;
+     box-sizing: border-box;
+ }
+ 
+ a {
+	display: block;
+	text-decoration: none;
+ }
+ 
+ /* 共通スタイル */
+ .contents {
+	padding: 40px;
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 flex-direction: column;
+ }
+.main {
+	width: 100%;
+	max-width: 1200px;
+	padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	flex-direction: column;
+	gap: 20px;
+}
+.heading-title {
+    text-align: center;
+    width: 100%;
+	margin: 0;
+}
+.button-area {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+/* ボタンスタイル */
+.button {
+	width: max-content;
+	border: 0;
+	border-radius: 4px;
+	font-size: 16px;
+	color: #FFFFFF;
+	padding: 8px 16px;
+	background-color: gray;
+	transition: 0.3s;
+	cursor: pointer;
+}
+.button--green {
+    background-color: #1D8B5A;
+}
+.button--blue {
+    background-color: #007BFF;
+}
+.button--red {
+    background-color: red;
+}
+.button--w100p {
+	width: 100%;
+}
+.button:hover {
+	opacity: 0.5;
+}
+
+.button-column {
+	display: flex;
+	gap: 20px;
+}
+
+.top .contents {
+	min-height: 100vh;
+}
+
+/* フォームスタイル */
+.form-area {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+    width: 440px;
+    padding: 24px;
+    border: 1px solid #CDCDCD;
+    border-radius: 4px;
+}
+.form-area__contents {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+	width: 100%;
+}
+.form-area__item {
+    width: 100%;
+}
+.form-area__text {
+    font-size: 14px;
+    color: #999999;
+}
+.form-area__input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 4px 8px;
+    border: 1px solid #CDCDCD;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.form-area__link {
+    width: 100%;
+    text-align: center;
+}
+.form-area__text-link {
+    color: cornflowerblue;
+}
+.form-area__text-link:hover {
+    text-decoration: underline;
+}
+
+
+.task-app {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.task-app__button {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+/* タスク一覧table */
+.task-table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.task-table__head {
+    background-color: #333333;
+}
+.task-table__row {
+	border-bottom: 1px solid #CDCDCD;
+}
+.task-table__body .task-table__row:nth-of-type(odd) {
+	background-color: #EAEAEA;
+}
+.task-table__item-name {
+	text-align: left;
+	padding: 8px 4px;
+	color: #FFFFFF;
+}
+
+/* 各カラム */
+.task-table__item-name--id {}
+.task-table__item-name--title {
+	width: 10em;
+}
+.task-table__item-name--content {
+	width: 15em;
+}
+.task-table__item-name--register {
+	width: 5em;
+}
+.task-table__item-name--start {}
+.task-table__item-name--end {}
+.task-table__item-name--created {}
+.task-table__item-name--updated {}
+.task-table__item-name--controller {}
+
+.task-table__data {
+	text-align: left;
+	padding: 8px 4px;
+	font-size: 14px;
+}
+
+
+/* ページネーション */
+.pagenation-area {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.pagenation-area__link {
+	text-align: center;
+	min-width: 32px;
+	display: block;
+	padding: 8px;
+	border: 1px solid #CDCDCD;
+	color: cornflowerblue;
+}
+.pagenation-area__link--before {
+	border-right: 0;
+	border-radius: 4px 0 0 4px;
+}
+.pagenation-area__link--next {
+	border-left: 0;
+	border-radius: 0 4px 4px 0;
+}
+.pagenation-area__link--number + .pagenation-area__link--number {
+	border-left: 0;
+}
+
+.pagenation-area__link.current {
+	background-color: cornflowerblue;
+	color: #FFFFFF;
+	border-top-color: cornflowerblue;
+	border-bottom-color: cornflowerblue;
+	pointer-events: none;
+}
+
+.pagenation-area__link:hover {
+	background-color: cornflowerblue;
+	border-top-color: cornflowerblue;
+	border-bottom-color: cornflowerblue;
+	color: #FFFFFF;
+}
+.pagenation-area__link.current + .pagenation-area__link--next,
+.pagenation-area__link--before:has(+ .current) {
+	background-color: lightgray;
+	color: #333333;
+	pointer-events: none;
+}
+
+/* エラーフィールド */
+.error-field {
+    width: 100%;
+	display: flex;
+	justify-content: center;
+    padding: 16px 40px;
+    background-color: #E1F7FF;
+    border: 1px solid #ADE8FF;
+}
+.error-field__text {
+	width: max-content;
+    color: #2b6b84;
+}
+
+
+/* タスク用フォーム */
+.task-form {
+    width: 100%;
+}
+.task-form__contents {
+    display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+.task-form__item {
+    
+}
+.task-form__text {
+	display: block;
+    font-size: 18px;
+    color: #333333;
+}
+.task-form__input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 4px 8px;
+    border: 1px solid #CDCDCD;
+    border-radius: 4px;
+    font-size: 18px;
+	font-family: auto;
+}
+.task-form__textarea {
+    width: 100%;
+    max-width: 1120px;
+    min-height: 80px;
+    padding: 4px 8px;
+    border: 1px solid #CDCDCD;
+    border-radius: 4px;
+    font-size: 18px;
+	font-family: auto;
+}
+
+
+/* .form-new */
+.form-new .heading-title {
+	text-align: left;
+}
+
+/* .form-new */
+.form-edit .heading-title {
+	text-align: left;
+}

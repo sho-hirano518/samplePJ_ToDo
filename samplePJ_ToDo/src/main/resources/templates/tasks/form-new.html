@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+ <head>
+	 <meta charset="UTF-8">
+	 <title>タスク新規追加</title>
+	 <link rel="stylesheet" th:href="@{/css/main.css}">
+ </head>
+
+ <body class="form-new">
+	<div class="contents">
+		<div class="main">
+			<h1 class="heading-title">タスク新規追加</h1>
+			<div class="task-form">
+				<form th:action="@{/tasks}" th:object="${task}" method="post" class="task-form__contents">
+					<div class="task-form__item">
+						<label for="task-title" class="task-form__text">タイトル</label>
+						<input type="text" th:field="*{title}" id="task-title" class="task-form__input">
+					</div>
+					<div class="task-form__item">
+						<label for="task-details" class="task-form__text">内容</label>
+						<textarea type="text" th:field="*{content}" id="task-details" class="task-form__textarea"></textarea>
+					</div>
+					<div class="task-form__item">
+						<label for="task-name" class="task-form__text">登録者</label>
+						<input type="text" th:field="*{name}" id="task-name" class="task-form__input">
+					</div>
+					<div class="task-form__item">
+						<label for="task-date-start" class="task-form__text">開始日</label>
+						<input type="date" th:field="*{startDate}" id="task-date-start" class="task-form__input">
+					</div>
+					<div class="task-form__item">
+						<label for="task-date-finish" class="task-form__text">終了日</label>
+						<input type="date" th:field="*{endDate}" id="task-date-finish" class="task-form__input">
+					</div>
+					<div class="button-column">
+						<button type="submit" class="button button--green">登録</button>
+						<a th:href="@{/tasks}" class="button">← キャンセル</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+ </body>
+
+</html>

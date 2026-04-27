@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sample.common.dao.mapper.LoginMapper">
+
+    <select id="findAll" resultType="sample.common.dao.entity.Login">
+        SELECT
+            id AS taskId,
+            username,
+            password,
+            created_at AS createdTime,
+            updated_at AS updatedTime
+        FROM login
+    </select>
+    
+    <select id="findById" resultType="sample.common.dao.entity.Login">
+        SELECT * FROM login WHERE username = #{username}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO login (
+            username, password, created_at, updated_at
+        ) VALUES (
+            #{username}, #{password}, NOW(), NOW()
+        )
+    </insert>
+    
+    <delete id="delete">
+	    DELETE FROM login
+	    WHERE id = #{taskId}
+	</delete>
+	
+	<update id="update">
+	    UPDATE login
+	    SET
+	        username = #{username},
+	        name = #{username},
+	        password = #{password},
+	        updated_at = NOW() 
+	    WHERE
+	        id = #{taskId}
+    </update>
+
+</mapper>

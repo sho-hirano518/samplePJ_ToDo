@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+ <head>
+	 <meta charset="UTF-8">
+	 <title>タスク編集</title>
+	 <link rel="stylesheet" th:href="@{/css/main.css}">
+ </head>
+
+ <body class="form-edit">
+	<div class="contents">
+		<div class="main">
+			<h1 class="heading-title">タスク編集</h1>
+			<div class="task-form">
+				<form th:action="@{/tasks/update/{id}(id=${task.taskId})}" th:object="${task}" method="post" class="task-form__contents">
+					<input type="hidden" th:field="*{taskId}">
+					
+					<div class="task-form__item">
+						<label for="task-title" class="task-form__text">タイトル</label>
+						<input type="text" th:field="*{title}" id="task-title" class="task-form__input">
+					</div>
+					<div class="task-form__item">
+						<label for="task-content" class="task-form__text">内容</label>
+						<textarea type="text" th:field="*{content}" id="task-content" class="task-form__textarea"></textarea>
+					</div>
+					<div class="task-form__item">
+						<label for="task-name" class="task-form__text">登録者</label>
+						<input type="text" th:field="*{name}" id="task-name" class="task-form__input">
+					</div>
+					<div class="task-form__item">
+						<label for="task-date-start" class="task-form__text">開始日</label>
+						<input type="date" th:name="startDate" id="task-date-start" th:value="${#temporals.format(task.startDate, 'yyyy-MM-dd')}" class="task-form__input">
+					</div>
+					<div class="task-form__item">
+						<label for="task-date-finish" class="task-form__text">終了日</label>
+						<input type="date" th:name="endDate" id="task-date-finish" th:value="${#temporals.format(task.endDate, 'yyyy-MM-dd')}" class="task-form__input">
+					</div>
+					<div class="button-column">
+						<button type="submit" class="button button--blue">更新</button>
+						<a th:href="@{/tasks}" class="button">← キャンセル</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+ </body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+ <head>
+	 <meta charset="UTF-8">
+	 <title>タスク一覧</title>
+	 <link rel="stylesheet" th:href="@{/css/main.css}">
+ </head>
+
+ <body class="task-list">
+	<div class="contents">
+		<div class="main">
+			<h1 class="heading-title">タスク一覧</h1>
+			<div class="task-app">
+				<div class="error-field" th:if="${#lists.isEmpty(tasks)}">
+					<p class="error-field__text">現在タスクは登録されていません。「新規作成」から追加してください。</p>
+				</div>
+				<table class="task-table" th:if="${!#lists.isEmpty(tasks)}">
+					<thead class="task-table__head">
+						<tr class="task-table__row">
+							<th class="task-table__item-name task-table__item-name--id">ID</th>
+							<th class="task-table__item-name task-table__item-name--title">タイトル</th>
+							<th class="task-table__item-name task-table__item-name--content">内容</th>
+							<th class="task-table__item-name task-table__item-name--register">登録者</th>
+							<th class="task-table__item-name task-table__item-name--start">開始日</th>
+							<th class="task-table__item-name task-table__item-name--end">終了日</th>
+							<th class="task-table__item-name task-table__item-name--created">作成日時</th>
+							<th class="task-table__item-name task-table__item-name--updated">更新日時</th>
+							<th class="task-table__item-name task-table__item-name--controller">操作</th>
+						</tr>
+					</thead>
+					<tbody class="task-table__body">
+						<tr th:each="task : ${tasks}" class="task-table__row">
+							<td class="task-table__data" th:text="${task.taskId}"></td>
+							<td class="task-table__data" th:text="${task.title}"></td>
+							<td class="task-table__data" th:text="${task.content}"></td>
+							<td class="task-table__data" th:text="${task.name}"></td>
+							<td class="task-table__data" th:text="${task.startDate}"></td>
+							<td class="task-table__data" th:text="${task.endDate}"></td>
+							<td class="task-table__data" th:text="${#temporals.format(task.createdTime, 'yyyy-MM-dd HH:mm')}"></td>
+							<td class="task-table__data" th:text="${#temporals.format(task.updatedTime, 'yyyy-MM-dd HH:mm')}"></td>
+							<td class="task-table__data">
+				            	<div style="display: flex; gap: 5px;">
+				                	<a th:href="@{/tasks/edit/{id}(id=${task.taskId})}" class="button button--blue">編集</a>
+				                	<form th:action="@{/tasks/delete/{id}(id=${task.taskId})}" method="post">
+					                    <button type="submit" class="button button--red">削除</button>
+					                </form>
+					            </div>
+					        </td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagenation-area" th:if="${totalPages > 1}">
+					<a th:href="@{/tasks(page=${currentPage > 1 ? currentPage - 1 : 1})}" class="pagenation-area__link pagenation-area__link--before">≪ 前</a>
+					<th:block th:each="i : ${#numbers.sequence(1, totalPages)}">
+				        <a th:href="@{/tasks(page=${i})}" th:text="${i}"　th:classappend="${i == currentPage} ? 'current' : ''"　class="pagenation-area__link pagenation-area__link--number"></a>
+					</th:block>
+					<a th:href="@{/tasks(page=${currentPage < totalPages ? currentPage + 1 : totalPages})}" class="pagenation-area__link pagenation-area__link--next">次 ≫</a>
+				</div>
+				<div class="task-app__button">
+					<a th:href="@{/tasks/new}" class="button button--green">+ 新規作成</a>
+				</div>
+			</div>
+		</div>
+	</div>
+ </body>
+
+</html>

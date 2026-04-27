@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+ <head>
+	 <meta charset="UTF-8">
+	 <title>TODOアプリ トップ</title>
+	 <link rel="stylesheet" th:href="@{/css/main.css}">
+ </head>
+
+ <body class="top">
+	<div class="contents">
+		<div class="main">
+			<h1 class="heading-title">TODOアプリ トップ</h1>
+			<div class="button-area">
+				<a th:href="@{/register}" class="button button--green">ユーザ登録</a>
+				<a th:href="@{/login}" class="button button--blue">ログイン</a>
+			</div>
+		</div>
+	</div>
+ </body>
+
+</html>
