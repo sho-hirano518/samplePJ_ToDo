@@ -10,5 +10,5 @@ public interface LoginMapper {
     void insert(Login login);
     void delete(Integer taskId);
     void update(Login login);
-	Login findById(String username);
+	Login findByUsername(String username);
 }

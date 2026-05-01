@@ -13,13 +13,14 @@
 			<h1 class="heading-title">ログイン</h1>
 			<div class="form-area">
 				<form th:action="@{/login}" method="post" class="form-area__contents">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<div class="form-area__item">
 						<p class="form-area__text">ユーザー名</p>
 						<input type="text" name="username" class="form-area__input" required>
 					</div>
 					<div class="form-area__item">
 						<p class="form-area__text">パスワード</p>
-						<input type="text" name="password" class="form-area__input" required>
+						<input type="password" name="password" class="form-area__input" required>
 					</div>
 					<button type="submit" class="button button--w100p button--blue">ログイン</button>
 				</form>

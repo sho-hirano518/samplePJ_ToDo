@@ -28,7 +28,7 @@
         INSERT INTO tasks (
             username, title, content, name, start_date, end_date, created_at, updated_at
         ) VALUES (
-            #{username}, #{title}, #{content}, #{name}, #{startDate}, #{endDate}, NOW(), NOW()
+            #{username}, #{title}, #{content}, #{registName}, #{startDate}, #{endDate}, NOW(), NOW()
         )
     </insert>
 	
@@ -38,17 +38,17 @@
 	        username = #{username},
 	        title = #{title},
 	        content = #{content},
-	        name = #{name},
+	        name = #{registName},
 	        start_date = #{startDate},
 	        end_date = #{endDate},
 	        updated_at = CURRENT_TIMESTAMP
 	    WHERE
-	        id = #{taskId}
+	        id = #{taskId} AND username = #{username}
     </update>
     
     <delete id="delete">
 	    DELETE FROM tasks
-	    WHERE id = #{taskId}
+	    WHERE id = #{taskId} AND username = #{username}
 	</delete>
     
     <select id="findById" resultType="sample.common.dao.entity.Task">
@@ -63,7 +63,7 @@
 	        created_at AS createdTime, 
 	        updated_at AS updatedTime 
 	    FROM tasks 
-	    WHERE id = #{taskId}
+	    WHERE id = #{taskId} AND username = #{username}
 	</select>
 
 </mapper>

@@ -9,6 +9,6 @@ public interface TaskService {
     List<Task> findList(String username, int page);
     void insert(Task task);
     void update(Task task);
-    void delete(Integer taskId);
-    Task findById(Integer id);
+    void delete(Integer taskId, String username);
+    Task findById(Integer id, String username);
 }

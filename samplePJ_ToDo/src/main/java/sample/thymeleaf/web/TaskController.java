@@ -3,6 +3,8 @@ package sample.thymeleaf.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +27,9 @@ public class TaskController {
     private TaskService taskService;
 
     // ログインチェック用セッション判定
-    private boolean isNotLoggedIn(HttpSession session) {
-        return session.getAttribute("user") == null;
-    }
+//    private boolean isNotLoggedIn(HttpSession session) {
+//        return session.getAttribute("user") == null;
+//    }
 
     // タスク一覧表示
     @GetMapping
@@ -35,12 +37,17 @@ public class TaskController {
             @RequestParam(name = "page", defaultValue = "1") int page,
             HttpSession session, 
             Model model) {
-        // ログインチェック
-        if (isNotLoggedIn(session)) return "redirect:/login";
+    	
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println("DEBUG: TaskController.list() 実行。ユーザー名: " + username);
         
         // ユーザー情報取得
         Login user = (Login) session.getAttribute("user");
-        String username = user.getUsername();
+//        String username = user.getUsername();
+        if (user == null) {
+            System.out.println("WARN: セッションに user オブジェクトがありません。再セットを検討してください。");
+        }
         
         // データの取得とページネーションの計算
         List<Task> tasks = taskService.findList(username, page);
@@ -60,7 +67,7 @@ public class TaskController {
     		HttpSession session,
     		Model model) {
         // ログインチェック
-        if (isNotLoggedIn(session)) return "redirect:/login";
+//        if (isNotLoggedIn(session)) return "redirect:/login";
         
         model.addAttribute("task", new Task());
         return "tasks/form-new";
@@ -72,7 +79,7 @@ public class TaskController {
     		@ModelAttribute Task task,
     		HttpSession session) {
         // ログインチェック
-        if (isNotLoggedIn(session)) return "redirect:/login";
+//        if (isNotLoggedIn(session)) return "redirect:/login";
 
         // ユーザー情報取得
     	Login user = (Login) session.getAttribute("user");
@@ -90,9 +97,10 @@ public class TaskController {
     		HttpSession session,
     		Model model) {
         // ログインチェック
-        if (isNotLoggedIn(session)) return "redirect:/login";
-        
-        Task task = taskService.findById(id);
+//        if (isNotLoggedIn(session)) return "redirect:/login";
+    	Login user = (Login) session.getAttribute("user");
+        Task task = taskService.findById(id, user.getUsername());
+        if (task == null) return "redirect:/tasks";
         // コンソール
 //        System.out.println("--- デバッグ開始 ---");
 //        System.out.println("ID: " + id);
@@ -112,7 +120,7 @@ public class TaskController {
             @ModelAttribute Task task, 
             HttpSession session) {
         // ログインチェック
-        if (isNotLoggedIn(session)) return "redirect:/login";
+//        if (isNotLoggedIn(session)) return "redirect:/login";
 
         // ユーザー情報取得
         Login user = (Login) session.getAttribute("user");
@@ -129,9 +137,10 @@ public class TaskController {
     		@PathVariable("id") Integer id,
     		HttpSession session) {
         // ログインチェック
-        if (isNotLoggedIn(session)) return "redirect:/login";
-        
-        taskService.delete(id);
+//        if (isNotLoggedIn(session)) return "redirect:/login";
+
+        Login user = (Login) session.getAttribute("user");
+        taskService.delete(id, user.getUsername());
         return "redirect:/tasks";
     }
     

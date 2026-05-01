@@ -50,13 +50,13 @@ public class TaskServiceImpl implements TaskService {
     // DB DELETE
     @Override
     @Transactional
-    public void delete(Integer taskId) {
-        taskMapper.delete(taskId);
+    public void delete(Integer taskId, String username) {
+        taskMapper.delete(taskId, username);
     }
     
     // １件取得用
     @Override
-    public Task findById(Integer id) {
-        return taskMapper.findById(id);
+    public Task findById(Integer id, String username) {
+        return taskMapper.findById(id, username);
     }
 }
